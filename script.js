@@ -8,17 +8,16 @@ function Book(title, author, pages, isRead, ID) {
     this.ID = ID
 }
 
-function addBooktoLibrary(title, author, pages, isRead) {
+function addBooktoLibrary() {
+    const title = document.querySelector('input[name="title"]').value
+    const author = document.querySelector('input[name="author"]').value
+    const pages = document.querySelector('input[name="pages"]').value
+    const isRead = document.querySelector('input[name="isRead"').checked
     const bookID = crypto.randomUUID()
     const newBook = new Book(title, author, pages, isRead, bookID)
     myLibrary.push(newBook)
-}
 
-addBooktoLibrary('The Hobbit', 'J.R.R. Tolkien', 295, true);
-addBooktoLibrary('The Hobbit', 'J.R.R. Tolkien', 295, true);
-addBooktoLibrary('The Hobbit', 'J.R.R. Tolkien', 295, true);
-addBooktoLibrary('The Hobbit', 'J.R.R. Tolkien', 295, true);
-addBooktoLibrary('The Hobbit', 'J.R.R. Tolkien', 295, true);
+}
 
 function bookDisplay() {
     const dataRows = document.querySelector('.bookData')
@@ -49,23 +48,23 @@ function bookDisplay() {
     }
 }
 
-bookDisplay();
-
 
 const dialog = document.querySelector("dialog");
 const showButton = document.querySelector(".openBookDialog");
 const closeButton = document.querySelector(".closeBtn");
 
 showButton.addEventListener("click", () => {
-  dialog.showModal();
+    dialog.showModal();
 });
 
 closeButton.addEventListener("click", () => {
-  dialog.close();
+    dialog.close();
 });
 
 const formSubmitBtn = document.querySelector('input[type="submit"]')
 
 formSubmitBtn.addEventListener("click", () => {
     event.preventDefault();
+    addBooktoLibrary()
+    dialog.close();
 })
