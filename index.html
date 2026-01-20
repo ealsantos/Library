@@ -1,27 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
     <table>
-        <tr class="headers">
-            <th>Title</th>
-            <th>Author</th>
-            <th>Pages</th>
-            <th>Is Read?</th>
-            <th>Book ID</th>
-        </tr>    
-        <tr class="bookData">
-            
+        <thead>
+            <tr class="headers">
+                <th>Title</th>
+                <th>Author</th>
+                <th>Pages</th>
+                <th>Is Read?</th>
+                <th>Book ID</th>
+            </tr>
+        </thead>
+        <tbody class="bookData">
+        </tbody>
         </tr>
     </table>
+    
+    <dialog>
+        <p>Fill your book informations</p>
+        <form action="/register" method ="GET">
+            <label>
+                Book Title: <input type="text" name="bookTitle">
+            </label>
+            <label>
+                Author: <input type="text" name="bookAuthor">
+            </label>
+            <label>
+                Pages <input type="number" name="bookPages" min="1" step="1">
+            </label>
+            <label>
+                Read? <input type="checkbox" name="bookIsRead">
+            </label>
+            <input type="submit">
+        </form>
 
+        <button class="closeBtn">Close without saving</button>
+    </dialog>
+    <button class="openBookDialog">Add a new Book!</button>
 
     <script src="script.js"></script>
 </body>
+
 </html>
