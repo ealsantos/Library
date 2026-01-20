@@ -21,7 +21,7 @@ function addBooktoLibrary() {
 function bookDisplay() {
     const dataRows = document.querySelector('.bookData')
 
-    while(dataRows.hasChildNodes()){
+    while (dataRows.hasChildNodes()) {
         dataRows.removeChild(dataRows.firstChild);
     }
 
@@ -48,11 +48,15 @@ function bookDisplay() {
         idInfo.textContent = book.ID;
         newBookEntry.appendChild(idInfo);
 
-        dataRows.append(newBookEntry)
+        const deleteBtn = document.createElement('button')
+        deleteBtn.textContent = "Delete";
+        deleteBtn.classList.add('delete-btn')
+        deleteBtn.setAttribute('data-id', book.ID)
+        newBookEntry.appendChild(deleteBtn)
 
+        dataRows.append(newBookEntry)
     }
 }
-
 
 const dialog = document.querySelector("dialog");
 const showButton = document.querySelector(".openBookDialog");
@@ -68,9 +72,22 @@ closeButton.addEventListener("click", () => {
 
 const formSubmitBtn = document.querySelector('input[type="submit"]')
 
-formSubmitBtn.addEventListener("click", () => {
+formSubmitBtn.addEventListener("click", (event) => {
     event.preventDefault();
-    addBooktoLibrary()
+    addBooktoLibrary();
     dialog.close();
-    bookDisplay()
+    bookDisplay();
 })
+
+const dataRows = document.querySelector(".bookData");
+dataRows.addEventListener("click", (e) => {
+  if (e.target.matches("button") && e.target.textContent === "Delete") {
+    const idToDelete = e.target.dataset.id;
+    
+    const index = myLibrary.findIndex((book) => book.ID === idToDelete);
+    if (index !== -1) myLibrary.splice(index, 1);
+
+    // 2) re-render the table
+    bookDisplay();
+  }
+});
