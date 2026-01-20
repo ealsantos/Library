@@ -16,11 +16,15 @@ function addBooktoLibrary() {
     const bookID = crypto.randomUUID()
     const newBook = new Book(title, author, pages, isRead, bookID)
     myLibrary.push(newBook)
-
 }
 
 function bookDisplay() {
     const dataRows = document.querySelector('.bookData')
+
+    while(dataRows.hasChildNodes()){
+        dataRows.removeChild(dataRows.firstChild);
+    }
+
     for (const book of myLibrary) {
         const newBookEntry = document.createElement('tr')
 
@@ -45,6 +49,7 @@ function bookDisplay() {
         newBookEntry.appendChild(idInfo);
 
         dataRows.append(newBookEntry)
+
     }
 }
 
@@ -67,4 +72,5 @@ formSubmitBtn.addEventListener("click", () => {
     event.preventDefault();
     addBooktoLibrary()
     dialog.close();
+    bookDisplay()
 })
