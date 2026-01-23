@@ -77,17 +77,20 @@ formSubmitBtn.addEventListener("click", (event) => {
     addBooktoLibrary();
     dialog.close();
     bookDisplay();
+    console.log(myLibrary)
 })
 
-const dataRows = document.querySelector(".bookData");
-dataRows.addEventListener("click", (e) => {
-  if (e.target.matches("button") && e.target.textContent === "Delete") {
-    const idToDelete = e.target.dataset.id;
-    
-    const index = myLibrary.findIndex((book) => book.ID === idToDelete);
-    if (index !== -1) myLibrary.splice(index, 1);
+const bookList = document.querySelector('tbody')
 
-    // 2) re-render the table
-    bookDisplay();
-  }
-});
+bookList.addEventListener("click", (event) => {
+    if (event.target.classList.contains('delete-btn')) {
+        const getBookID = event.target.getAttribute("data-id")
+        const closestTD = event.target.closest('tr')
+        closestTD.remove();
+        const getObjectToDeleteIndex = myLibrary.findIndex((book) => book.ID === getBookID)
+        myLibrary.splice(getObjectToDeleteIndex, 1);
+        console.log(myLibrary);
+        bookDisplay();
+    }
+}
+)
