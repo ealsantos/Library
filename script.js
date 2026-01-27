@@ -83,7 +83,6 @@ formSubmitBtn.addEventListener("click", (event) => {
     addBooktoLibrary();
     dialog.close();
     bookDisplay();
-    console.log(myLibrary)
 })
 
 const bookList = document.querySelector('tbody')
