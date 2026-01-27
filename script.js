@@ -27,6 +27,7 @@ function bookDisplay() {
 
     for (const book of myLibrary) {
         const newBookEntry = document.createElement('tr')
+        newBookEntry.setAttribute('data-id', book.ID)
 
         const titleInfo = document.createElement("td");
         titleInfo.textContent = book.title;
@@ -51,8 +52,13 @@ function bookDisplay() {
         const deleteBtn = document.createElement('button')
         deleteBtn.textContent = "Delete";
         deleteBtn.classList.add('delete-btn')
-        deleteBtn.setAttribute('data-id', book.ID)
         newBookEntry.appendChild(deleteBtn)
+
+        const readBtn = document.createElement('button')
+        readBtn.textContent = "Click to mark as Read/Unread";
+        readBtn.classList.add('isRead-btn')
+        readBtn.setAttribute('isRead', book.isRead)
+        newBookEntry.appendChild(readBtn)
 
         dataRows.append(newBookEntry)
     }
@@ -84,13 +90,26 @@ const bookList = document.querySelector('tbody')
 
 bookList.addEventListener("click", (event) => {
     if (event.target.classList.contains('delete-btn')) {
-        const getBookID = event.target.getAttribute("data-id")
         const closestTD = event.target.closest('tr')
+        const getBookID = closestTD.getAttribute("data-id")
         closestTD.remove();
         const getObjectToDeleteIndex = myLibrary.findIndex((book) => book.ID === getBookID)
         myLibrary.splice(getObjectToDeleteIndex, 1);
-        console.log(myLibrary);
-        bookDisplay();
+    }
+}
+)
+
+Book.prototype.read = function () {
+    this.isRead = !this.isRead
+}
+
+bookList.addEventListener("click", (event) => {
+    if (event.target.classList.contains('isRead-btn')) {
+        const getElementID = event.target.closest('tr')
+        const getBookID = getElementID.getAttribute("data-id")
+        const bookToChange = myLibrary.find((book) => book.ID === getBookID)
+        bookToChange.read()
+        bookDisplay()
     }
 }
 )
